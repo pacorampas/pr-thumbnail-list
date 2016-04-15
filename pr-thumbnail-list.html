@@ -1,0 +1,115 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <pr-thumbnail-list></pr-thumbnail-list>
+
+Example:
+
+    <pr-thumbnail-list>
+      <h2>Hello pr-thumbnail-list</h2>
+    </pr-thumbnail-list>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="pr-thumbnail-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        font-size: 0;
+        overflow: hidden;
+        overflow-x: scroll;
+      }
+    </style>
+    <div id="carousel" style="width: {{width}}px">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'pr-thumbnail-list',
+
+      properties: {
+        width: {
+          type: Number,
+          value: 9999999999
+        },
+        items: {
+          type: Array,
+          value: []
+        },
+        active: {
+          type: Number,
+          value: 0,
+          observer: '_setScrollOfActive'
+        }
+      },
+
+      attached: function() {
+        var nodes = Polymer.dom(this.$$('content')).getDistributedNodes();
+        var w = 0;
+
+        for (var index in nodes) {
+          if (!nodes[index].offsetWidth) {
+            continue;
+          }
+          var elStyles = getComputedStyle(nodes[index]);
+          var marginRight = parseFloat(elStyles.marginRight.replace('px', ''));
+          var marginLeft = parseFloat(elStyles.marginLeft.replace('px', ''));
+          this.items.push({
+            node: nodes[index],
+            leftPosition: w
+          });
+          w += nodes[index].offsetWidth + marginRight + marginLeft;
+        }
+        this.width = w;
+
+        this.setActive(this.active);
+      },
+
+      _setScrollByIndexPosition: function(index) {
+        if (this.items.length-1 < index || index < 0) {
+          return;
+        }
+        this._scroll(this.items[index].leftPosition);
+      },
+
+      _setScrollOfActive: function() {
+        this._setScrollByIndexPosition(this.active);
+      },
+
+      setActive: function(newActive) {
+        if (newActive > this.items.length-1 || newActive < 0) {
+          return;
+        }
+
+        var oldActive = this.active;
+        this.items[oldActive].node.active = false;
+        this.items[newActive].node.active = true;
+        this.active = newActive;
+      },
+
+      _scroll: function(leftValue) {
+        Polymer.dom(this).node.scrollLeft = leftValue;
+      }
+    });
+  </script>
+</dom-module>
