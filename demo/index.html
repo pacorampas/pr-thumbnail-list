@@ -19,43 +19,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </head>
 
   <body unresolved>
+    <template id="app" is="dom-bind">
+      <pr-thumbnail-list active="0">
+        <template is="dom-repeat" items="{{images}}">
+          <pr-thumbnail image='{{item}}'></pr-thumbnail>
+        </template>
+      <pr-thumbnail-list>
+    </template>
 
-    <pr-thumbnail-list active="3">
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi1", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi2", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi3", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi4", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi5", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi6", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi7", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi8", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi9", "src": ""}'>
-      </pr-thumbnail>
-      <pr-thumbnail
-        image='{"title": "Celebración de Messi10", "src": ""}'>
-      </pr-thumbnail>
-    </pr-thumbnail-list>
+    <script>
 
+    var app = document.querySelector('#app');
+    app.images = [
+      {src: 'http://images.spanish.latinospost.com/data/images/full/51922/lionel-messi.jpg'},
+      {src: 'https://i.ytimg.com/vi/N1TWEisu3eo/maxresdefault.jpg'},
+      {src: 'http://estaticos.sport.es/resources/jpg/0/3/leo-messi-celebra-gol-con-barca-1450786669430.jpg'},
+      {src: 'http://bucket1.clanacion.com.ar/anexos/fotos/49/liga-de-espana-2018949w620.jpg'},
+      {src: 'http://i2.cdn.turner.com/cnnnext/dam/assets/150915141259-messi-vs-ronaldo-super-169.jpg'},
+      {src: 'http://estaticos.marca.com/imagenes/2015/06/07/futbol/1433681911_extras_noticia_foton_7_1.jpg'}
+    ];
+
+    // The dom-change event signifies when the template has stamped its DOM.
+    app.addEventListener('dom-change', function() {
+      setTimeout(function() {
+        console.log('Added new image');
+        app.push('images', {src: 'http://www.pixelstalk.net/wp-content/uploads/2015/11/Messi-Wallpaper-2015.jpg'})
+      }, 1000);
+    });
+
+    // auto-binding template is ready.
+
+    /*app.gallery.addImages([
+      {src: '../messi4.jpg'}, {src: '../messi5.jpg'}
+    ]);*/
+
+    </script>
 
   </body>
 </html>

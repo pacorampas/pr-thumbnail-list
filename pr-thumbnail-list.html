@@ -39,7 +39,7 @@ Example:
       }
     </style>
     <div id="carousel" style="width: {{width}}px">
-      <content></content>
+      <content id="content"></content>
     </div>
   </template>
 
@@ -50,7 +50,7 @@ Example:
       properties: {
         width: {
           type: Number,
-          value: 9999999999
+          value: 0
         },
         items: {
           type: Array,
@@ -58,14 +58,46 @@ Example:
         },
         active: {
           type: Number,
-          value: 0,
-          observer: '_setScrollOfActive'
+          value: 0
         }
       },
 
-      attached: function() {
-        var nodes = Polymer.dom(this.$$('content')).getDistributedNodes();
-        var w = 0;
+      listeners: {
+        tap: '_handleTap'
+      },
+
+      ready: function() {
+        var contentNode = Polymer.dom(this.$.content);
+        this._observer = contentNode.observeNodes((info) => {
+          this._initNewChildNodeAdded(info.addedNodes);
+        });
+      },
+
+      detached: function() {
+        Polymer.dom(this.$.content).unobserveNodes(this._observer);
+      },
+
+      setActive: function(newActive) {
+        if (newActive > this.items.length-1 || newActive < 0) {
+          return;
+        }
+
+        var oldActive = this.active;
+        this.items[oldActive].node.active = false;
+        this.items[newActive].node.active = true;
+        this.active = newActive;
+      },
+
+      _handleTap: function(e) {
+        //TODO this is working because pr-thumbnail childs have  set
+        //pointer-events: none. It isn't work on IE9 and 10. We need a
+        //pollyfill for it
+        this.setActive(e.target.getAttribute('index'));
+      },
+
+      _initNewChildNodeAdded: function(addedNodes) {
+        var nodes = addedNodes;
+        var w = this.width;
 
         for (var index in nodes) {
           if (!nodes[index].offsetWidth) {
@@ -78,10 +110,10 @@ Example:
             node: nodes[index],
             leftPosition: w
           });
+          nodes[index].setAttribute('index', this.items.length-1);
           w += nodes[index].offsetWidth + marginRight + marginLeft;
         }
         this.width = w;
-
         this.setActive(this.active);
       },
 
@@ -90,21 +122,6 @@ Example:
           return;
         }
         this._scroll(this.items[index].leftPosition);
-      },
-
-      _setScrollOfActive: function() {
-        this._setScrollByIndexPosition(this.active);
-      },
-
-      setActive: function(newActive) {
-        if (newActive > this.items.length-1 || newActive < 0) {
-          return;
-        }
-
-        var oldActive = this.active;
-        this.items[oldActive].node.active = false;
-        this.items[newActive].node.active = true;
-        this.active = newActive;
       },
 
       _scroll: function(leftValue) {
