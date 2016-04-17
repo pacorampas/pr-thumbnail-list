@@ -58,7 +58,10 @@ Example:
         },
         active: {
           type: Number,
-          value: 0
+          value: 0,
+          notify: true,
+          reflectToAttribute: true,
+          observer: '_activeChangedObserver'
         }
       },
 
@@ -77,15 +80,16 @@ Example:
         Polymer.dom(this.$.content).unobserveNodes(this._observer);
       },
 
-      setActive: function(newActive) {
+      setActive: function(newActive, oldActive) {
         if (newActive > this.items.length-1 || newActive < 0) {
           return;
         }
 
-        var oldActive = this.active;
+        var oldActive = (oldActive || oldActive === 0)? oldActive : this.active;
         this.items[oldActive].node.active = false;
         this.items[newActive].node.active = true;
         this.active = newActive;
+        this.notifyPath('active', this.active);
       },
 
       _handleTap: function(e) {
@@ -93,6 +97,11 @@ Example:
         //pointer-events: none. It isn't work on IE9 and 10. We need a
         //pollyfill for it
         this.setActive(e.target.getAttribute('index'));
+      },
+
+      _activeChangedObserver: function(newValue, oldValue) {
+        this.setActive(newValue, oldValue);
+        this._setScrollByIndexPosition(newValue);
       },
 
       _initNewChildNodeAdded: function(addedNodes) {
