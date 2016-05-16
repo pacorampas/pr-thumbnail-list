@@ -11,16 +11,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-An element providing a solution to no problem in particular.
-
-Example:
-
-    <pr-thumbnail-list></pr-thumbnail-list>
+An element to create a list of thumbnails.
 
 Example:
 
     <pr-thumbnail-list>
-      <h2>Hello pr-thumbnail-list</h2>
+      <img src="path/to/img.png">
+      <img src="path/to/img.png">
+      <img src="path/to/img.png">
     </pr-thumbnail-list>
 
 @demo demo/index.html
@@ -36,6 +34,10 @@ Example:
         font-size: 0;
         overflow: hidden;
         overflow-x: scroll;
+      }
+
+      #carousel {
+        margin: 0 auto;
       }
     </style>
     <div id="carousel" style="width: {{width}}px">
@@ -56,6 +58,12 @@ Example:
           type: Array,
           value: []
         },
+        /**
+         * `active` is the array position active at this time.
+         * If you change the index, the image is changed.
+         *
+         * @type Number
+         */
         active: {
           type: Number,
           value: 0,
@@ -79,7 +87,13 @@ Example:
       detached: function() {
         Polymer.dom(this.$.content).unobserveNodes(this._observer);
       },
-
+      /**
+       * Sets the index of new active thumbnail and clean the previuos active
+       *
+       * @param Number
+       * @param Number
+       *
+       */
       setActive: function(newActive, oldActive) {
         if (newActive > this.items.length-1 || newActive < 0) {
           return;
