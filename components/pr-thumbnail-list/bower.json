@@ -1,0 +1,30 @@
+{
+  "name": "pr-thumbnail-list",
+  "version": "1.0.7",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "pr-thumbnail-list.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "pr-thumbnail": "https://github.com/pacorampas/pr-thumbnail.git#master",
+    "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.1",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^1.0.6"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  }
+}

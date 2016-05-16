@@ -1,0 +1,35 @@
+{
+  "name": "pr-thumbnail",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "pr-thumbnail.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  },
+  "_release": "645df16212",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "645df162129174089d4e90f124e5695e9915d0e5"
+  },
+  "_source": "https://github.com/pacorampas/pr-thumbnail.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/pacorampas/pr-thumbnail.git"
+}

@@ -1,0 +1,39 @@
+{
+  "name": "pr-thumbnail-list",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
+  "description": "An element providing a solution to no problem in particular.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "pr-thumbnail-list.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "pr-thumbnail": "https://github.com/pacorampas/pr-thumbnail.git#master",
+    "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.1",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^1.0.6"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  },
+  "_release": "a22e323dd5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a22e323dd596da41ca31419847e3a3867310dba8"
+  },
+  "_source": "git@github.com:pacorampas/pr-thumbnail-list.git",
+  "_target": "master",
+  "_originalSource": "git@github.com:pacorampas/pr-thumbnail-list",
+  "_direct": true
+}

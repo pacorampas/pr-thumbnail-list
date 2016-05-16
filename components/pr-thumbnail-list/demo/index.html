@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>pr-thumbnail-list Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../pr-thumbnail/pr-thumbnail.html">
+    <link rel="import" href="../pr-thumbnail-list.html">
+  </head>
+
+  <body unresolved>
+    <template id="app" is="dom-bind">
+      <pr-thumbnail-list active="0">
+        <template is="dom-repeat" items="{{images}}">
+          <pr-thumbnail image='{{item}}'></pr-thumbnail>
+        </template>
+      <pr-thumbnail-list>
+    </template>
+
+    <script>
+      var app = document.querySelector('#app');
+      app.images = [
+        {src: 'http://images.spanish.latinospost.com/data/images/full/51922/lionel-messi.jpg'},
+        {src: 'https://i.ytimg.com/vi/N1TWEisu3eo/maxresdefault.jpg'},
+        {src: 'http://estaticos.sport.es/resources/jpg/0/3/leo-messi-celebra-gol-con-barca-1450786669430.jpg'},
+        {src: 'http://bucket1.clanacion.com.ar/anexos/fotos/49/liga-de-espana-2018949w620.jpg'},
+        {src: 'http://i2.cdn.turner.com/cnnnext/dam/assets/150915141259-messi-vs-ronaldo-super-169.jpg'},
+        {src: 'http://estaticos.marca.com/imagenes/2015/06/07/futbol/1433681911_extras_noticia_foton_7_1.jpg'}
+      ];
+
+      app.addEventListener('dom-change', function() {
+        setTimeout(function() {
+          console.log('Added new image');
+          app.push('images', {src: 'http://www.pixelstalk.net/wp-content/uploads/2015/11/Messi-Wallpaper-2015.jpg'})
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
